@@ -6,7 +6,7 @@ export default ({
   h = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'turquoise'],
 } = {}) => {
   const v = document.createElement('canvas');
-  v.style.position = 'absolute';
+  v.style.position = 'sticky';
   v.style.top = '0';
   v.style.left = '0';
   v.style.zIndex = '999999';
