@@ -8,7 +8,7 @@ Shower the screen with faux confetti. Creates a canvas element to render confett
 <html>
   <head>
     <script type="module">
-      import buildConfetti from 'https://cdn.jsdelivr.net/gh/studiokeywi/fun/confetti/index.js';
+      import buildConfetti from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/confetti/index.js';
 
       const { i: init, r: render } = buildConfetti();
 

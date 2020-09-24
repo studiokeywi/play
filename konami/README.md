@@ -12,7 +12,7 @@ This version of the code substitutes keyboard arrows for the directional pad. It
 <html>
   <head>
     <script type="module">
-      import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/fun/konami/index.js';
+      import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/konami/index.js';
 
       const p = () => alert('You did it!');
       const run = buildKonami({ p });
@@ -44,7 +44,7 @@ const konamiConfig = {
 The payload function provided to the builder will be executed with access to the `konamiCode.l()` and `konamiCode.u()` functions via the first `kc` parameter. This allows more custom behavior in enabling/disabling the Konami Code detection
 
 ```js
-import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/fun/konami.index';
+import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/konami.index';
 
 // Example: Builds a Konami Code detector that executes in "2P mode" a single time by default, or repeats if the user agrees
 buildKonami({
