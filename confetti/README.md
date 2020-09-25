@@ -10,7 +10,7 @@ Shower the screen with faux confetti. Creates a canvas element to render confett
     <script type="module">
       import buildConfetti from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/confetti/index.js';
 
-      const { i: init, r: render } = buildConfetti();
+      const { init, render } = buildConfetti();
 
       // Use init() to generate the intial confetti burst; use render() to begin animation
       document.querySelector('#confetti').addEventListener('click', () => {
@@ -29,10 +29,11 @@ Shower the screen with faux confetti. Creates a canvas element to render confett
 
 ```js
 const confettiConfig = {
-  c: Number,   // particle count;   default: 300
-  g: Number,   // gravity;          default: 0.25
-  t: Number,   // terminalVelocity; default: 5
-  d: Number,   // horizontalDrag;   default: 0.075
-  h: String[], // hues;             default: ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'turquoise']
+  holidays:     Boolean,  // default: true
+  count:        Number,   // default: 300
+  gravity:      Number,   // default: 0.25
+  termVelocity: Number,   // default: 5
+  drag:         Number,   // default: 0.075
+  colors:       String[], // default: ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'turquoise']
 };
 ```

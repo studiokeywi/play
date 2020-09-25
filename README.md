@@ -18,8 +18,9 @@ Fun bits and bobs for anyone to use!
 
 ```html
 <script type="module" defer>
-  import { buildConfetti, buildKonami } from '//cdn.jsdelivr.net/gh/studiokeywi/play/index.js';
-  const { i, r } = buildConfetti();
-  buildKonami({ o: false, p: () => (i(), r()) })();
+  import { confetti, konami } from '//cdn.jsdelivr.net/gh/studiokeywi/play/index.js';
+  const { init, render } = confetti();
+  const payload = () => (init(), render());
+  konami({ once: false, payload })();
 </script>
 ```

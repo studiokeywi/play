@@ -1,66 +1,83 @@
 export default ({
-  c = 300,
-  g = 0.25,
-  t = 5,
-  d = 0.075,
-  h = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'turquoise'],
+  holidays = true,
+  count = 300,
+  gravity = 0.25,
+  termVelocity = 5,
+  drag = 0.075,
+  colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'turquoise'],
 } = {}) => {
-  const v = document.createElement('canvas');
-  v.style.position = 'fixed';
-  v.style.top = '0';
-  v.style.left = '0';
-  v.style.zIndex = '999999';
-  const x = v.getContext('2d');
-  let f = [];
-  const n = (n, m) => Math.random() * (m - n) + n;
-  const C = Math.PI * 2;
-  let q;
-  const z = () => {
-    v.width = innerWidth;
-    v.height = innerHeight;
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.zIndex = '999999';
+  const ctx = canvas.getContext('2d');
+  let confetti = [];
+  const randRange = (n, m) => Math.random() * (m - n) + n;
+  const CIRCLE = Math.PI * 2;
+  let frameRequest;
+  const resize = () => {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
   };
-  const i = () => {
-    z();
-    document.body.append(v);
-    addEventListener('resize', z);
-    f = !f.length
-      ? Array(c)
+  const holidayColors = () => {
+    const now = new Date();
+    const date = now.getDate();
+    const month = now.getMonth() + 1;
+    return date === 14 && month === 2
+      ? ['orchid', 'pink', 'white', 'crimson', 'violet']
+      : date === 4 && month === 7
+      ? ['red', 'white', 'blue']
+      : date === 31 && month === 10
+      ? ['black', 'orange']
+      : date === 25 && month === 12
+      ? ['red', 'green']
+      : colors;
+  };
+  const init = () => {
+    resize();
+    document.body.append(canvas);
+    addEventListener('resize', resize);
+    if (holidays) colors = holidayColors();
+    confetti = !confetti.length
+      ? Array(count)
           .fill()
           .map(() => ({
-            h: h[n(0, h.length) | 0],
-            z: { x: n(10, 20), y: n(10, 30) },
-            p: { x: n(0, v.width), y: v.height - 1 },
-            r: n(0, C),
-            t: n(0, 0.0875),
-            c: { x: 1, y: 1 },
-            v: { x: n(-25, 25), y: n(-30, 0) },
+            color: colors[randRange(0, colors.length) | 0],
+            size: { x: randRange(10, 20), y: randRange(10, 30) },
+            position: { x: randRange(0, canvas.width), y: canvas.height - 1 },
+            rotation: randRange(0, CIRCLE),
+            turnSpeed: randRange(0, 0.0875),
+            scale: { x: 1, y: 1 },
+            v: { x: randRange(-25, 25), y: randRange(-30, 0) },
           }))
-      : (cancelAnimationFrame(q), []);
+      : (cancelAnimationFrame(frameRequest), []);
   };
-  const r = () => {
-    x.clearRect(0, 0, v.width, v.height);
-    f.forEach((c, i) => {
-      const w = c.z.x * c.c.x;
-      const h = c.z.y * c.c.y;
-      x.translate(c.p.x, c.p.y);
-      x.rotate(c.r);
-      c.v.x -= c.v.x * d;
-      c.v.y = Math.min(c.v.y + g, t);
-      c.v.x += (Math.random() > 0.5 ? 1 : -1) * Math.random();
-      c.p.x += c.v.x;
-      c.p.y += c.v.y;
-      c.r = (c.r + c.t) % C;
-      if (c.p.y >= v.height) f.splice(i, 1);
-      if (c.p.x > v.width) c.p.x = 0;
-      if (c.p.x < 0) c.p.x = v.width;
-      c.c.x = Math.sin(c.p.x * 0.1);
-      c.c.y = Math.cos(c.p.y * 0.1);
-      x.fillStyle = Math.sign(c.c.x) === Math.sign(c.c.y) ? c.h : `dark${c.h}`;
-      x.fillRect(-w / 2, -h / 2, w, h);
-      x.setTransform(1, 0, 0, 1, 0, 0);
+  const render = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach((confetto, idx) => {
+      const w = confetto.size.x * confetto.scale.x;
+      const h = confetto.size.y * confetto.scale.y;
+      ctx.translate(confetto.position.x, confetto.position.y);
+      ctx.rotate(confetto.rotation);
+      confetto.velocity.x -= confetto.velocity.x * drag;
+      confetto.velocity.y = Math.min(confetto.velocity.y + gravity, termVelocity);
+      confetto.velocity.x += (Math.random() > 0.5 ? 1 : -1) * Math.random();
+      confetto.position.x += confetto.velocity.x;
+      confetto.position.y += confetto.velocity.y;
+      confetto.rotation = (confetto.rotation + confetto.turnSpeed) % CIRCLE;
+      if (confetto.position.y >= canvas.height) confetti.splice(idx, 1);
+      if (confetto.position.x > canvas.width) confetto.position.x = 0;
+      if (confetto.position.x < 0) confetto.position.x = canvas.width;
+      confetto.scale.x = Math.sin(confetto.position.x * 0.1);
+      confetto.scale.y = Math.cos(confetto.position.y * 0.1);
+      ctx.fillStyle =
+        Math.sign(confetto.scale.x) === Math.sign(confetto.scale.y) ? confetto.color : `dark${confetto.color}`;
+      ctx.fillRect(-w / 2, -h / 2, w, h);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
     });
-    if (f.length) q = requestAnimationFrame(r);
-    else cancelAnimationFrame(q), v.remove(), removeEventListener('resize', z);
+    if (confetti.length) frameRequest = requestAnimationFrame(render);
+    else cancelAnimationFrame(frameRequest), canvas.remove(), removeEventListener('resize', resize);
   };
-  return { i, r };
+  return { init, render };
 };

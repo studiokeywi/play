@@ -14,8 +14,8 @@ This version of the code substitutes keyboard arrows for the directional pad. It
     <script type="module">
       import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/konami/index.js';
 
-      const p = () => alert('You did it!');
-      const run = buildKonami({ p });
+      const payload = () => alert('You did it!');
+      const run = buildKonami({ payload });
 
       // Use run() to begin Konami Code detection on the current page
       document.querySelector('#konami').addEventListener('click', () => {
@@ -33,9 +33,9 @@ This version of the code substitutes keyboard arrows for the directional pad. It
 
 ```js
 const konamiConfig = {
-  o: Boolean, // once;      default: true
-  s: Boolean, // "2p mode"; default: false
-  p: Function, // payload;  default: (kc) => console.log('payload', kc)
+  once:         Boolean,  // default: true
+  secondPlayer: Boolean,  // default: false
+  payload:      Function, // default: (kc) => console.log('payload', kc)
 };
 ```
 
