@@ -49,7 +49,7 @@ export default ({
             rotation: randRange(0, CIRCLE),
             turnSpeed: randRange(0, 0.0875),
             scale: { x: 1, y: 1 },
-            v: { x: randRange(-25, 25), y: randRange(-30, 0) },
+            velocity: { x: randRange(-25, 25), y: randRange(-30, 0) },
           }))
       : (cancelAnimationFrame(frameRequest), []);
   };
