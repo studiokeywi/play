@@ -12,7 +12,7 @@ Shower the screen with faux confetti. Creates a canvas element to render confett
 
       const { init, render } = buildConfetti();
 
-      // Use init() to generate the intial confetti burst; use render() to begin animation
+      // init() generates new confetti; render() begins animation
       document.querySelector('#confetti').addEventListener('click', () => {
         init();
         render();

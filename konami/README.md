@@ -17,7 +17,7 @@ This version of the code substitutes keyboard arrows for the directional pad. It
       const payload = () => alert('You did it!');
       const { load } = buildKonami({ payload });
 
-      // Use the load() to begin Konami Code detection on the current page
+      // Use load() to begin Konami Code detection on the current page
       document.querySelector('#konami').addEventListener('click', () => {
         load();
       });
@@ -48,9 +48,7 @@ import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/konami.ind
 
 // Example: Builds a Konami Code detector that executes in "2P mode" a single time by default, or repeats if the user agrees
 buildKonami({
-  payload: konami => {
-    if (confirm('Re-enable this konami code payload?')) konami.load();
-  },
+  payload: konami => confirm('Re-enable this konami code payload?') && konami.load(),
   secondPlayer: true,
 }).load(); // Attach immediately
 ```
