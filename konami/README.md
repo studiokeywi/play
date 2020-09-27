@@ -15,11 +15,11 @@ This version of the code substitutes keyboard arrows for the directional pad. It
       import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/konami/index.js';
 
       const payload = () => alert('You did it!');
-      const run = buildKonami({ payload });
+      const { load } = buildKonami({ payload });
 
-      // Use run() to begin Konami Code detection on the current page
+      // Use the load() to begin Konami Code detection on the current page
       document.querySelector('#konami').addEventListener('click', () => {
-        run();
+        load();
       });
     </script>
   </head>
@@ -35,22 +35,22 @@ This version of the code substitutes keyboard arrows for the directional pad. It
 const konamiConfig = {
   once:         Boolean,  // default: true
   secondPlayer: Boolean,  // default: false
-  payload:      Function, // default: (kc) => console.log('payload', kc)
+  payload:      Function, // default: konami => console.log('payload', konami)
 };
 ```
 
 ## Advanced Usage
 
-The payload function provided to the builder will be executed with access to the `konamiCode.l()` and `konamiCode.u()` functions via the first `kc` parameter. This allows more custom behavior in enabling/disabling the Konami Code detection
+The payload function provided to the builder will be executed with access to the `konami.load()` and `konami.unload()` functions via the first parameter. This allows more custom behavior in enabling/disabling the Konami Code detection
 
 ```js
 import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/konami.index';
 
 // Example: Builds a Konami Code detector that executes in "2P mode" a single time by default, or repeats if the user agrees
 buildKonami({
-  p: kc => {
-    if (confirm('Re-enable this konami code payload?')) kc.l();
+  payload: konami => {
+    if (confirm('Re-enable this konami code payload?')) konami.load();
   },
-  s: true,
-})(); // Attach immediately
+  secondPlayer: true,
+}).load(); // Attach immediately
 ```
