@@ -1,17 +1,32 @@
+const one = [
+  'ArrowUp',
+  'ArrowUp',
+  'ArrowDown',
+  'ArrowDown',
+  'ArrowLeft',
+  'ArrowRight',
+  'ArrowLeft',
+  'ArrowRight',
+  'b',
+  'a',
+  'Enter',
+];
+const two = [...one.slice(0, one.length - 1), 'Shift', [...one].pop()];
+
 export default ({ once = true, payload = konami => console.log('payload', konami), secondPlayer = false } = {}) => {
-  const deltas = [0, 38, 2, 38, -1, 40, -3, 42, 24, 41, ...(secondPlayer ? [-25, 38] : [-28])];
-  const entries = [38];
-  const load = () => document.addEventListener('keyup', handler);
-  const handler = ({ keyCode }) => (
-    entries.push(keyCode - entries[entries.length - 1]),
-    !entries.slice(1, entries.length).every((code, idx) => code === deltas[idx])
+  const keys = secondPlayer ? two : one;
+  const entries = [];
+  const load = () => document.addEventListener('keydown', handler);
+  const handler = ({ key }) => (
+    entries.push(key),
+    !entries.every((entry, idx) => entry === keys[idx])
       ? reset()
-      : entries.length > deltas.length
+      : entries.length === keys.length
       ? (once && unload(), reset(), payload(konami))
       : void 0
   );
-  const reset = () => entries.splice(0, entries.length, 38);
-  const unload = () => document.removeEventListener('keyup', handler);
+  const reset = () => entries.splice(0, entries.length);
+  const unload = () => document.removeEventListener('keydown', handler);
   const konami = { load, unload };
   return konami;
 };
