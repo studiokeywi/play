@@ -13,19 +13,20 @@ const one = [
 ];
 const two = [...one.slice(0, one.length - 1), 'Shift', [...one].pop()];
 
-export default ({ once = true, payload = konami => console.log('payload', konami), secondPlayer = false } = {}) => {
+export default ({ once = true, payload = console.log.bind(null, 'payload'), secondPlayer = false } = {}) => {
   const keys = secondPlayer ? two : one;
   const entries = [];
   const load = () => document.addEventListener('keydown', handler);
-  const handler = ({ key }) => (
-    entries.push(key),
-    !entries.every((entry, idx) => entry === keys[idx])
-      ? reset()
-      : entries.length === keys.length
-      ? (once && unload(), reset(), payload(konami))
-      : void 0
-  );
-  const reset = () => entries.splice(0, entries.length);
+  const handler = ({ key }) => {
+    entries.push(key);
+    if (!entries.every((entry, idx) => entry === keys[idx])) return reset();
+    if (entries.length === keys.length) {
+      if (once) unload();
+      reset();
+      payload(konami);
+    }
+  };
+  const reset = () => void entries.splice(0, entries.length);
   const unload = () => document.removeEventListener('keydown', handler);
   const konami = { load, unload };
   return konami;
