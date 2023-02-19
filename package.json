@@ -1,5 +1,6 @@
 {
   "name": "@studiokeywi/play",
+  "version": "0.0.1",
   "browser": "./dist/index.js",
   "exports": {
     ".": {
