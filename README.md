@@ -2,6 +2,8 @@
 
 Fun bits and bobs for anyone to use!
 
+[![](https://data.jsdelivr.com/v1/package/gh/studiokeywi/play/badge?style=rounded)](https://www.jsdelivr.com/package/gh/studiokeywi/play)
+
 ## Contents
 
 - ### [Confetti](https://github.studiokeywi.dev/play/tree/primary/packages/confetti)
