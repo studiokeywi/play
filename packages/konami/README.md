@@ -33,9 +33,9 @@ This version of the code substitutes keyboard arrows for the directional pad. It
 
 ```js
 const konamiConfig = {
-  once:         Boolean,  // default: true
-  secondPlayer: Boolean,  // default: false
-  payload:      Function, // default: konami => console.log('payload', konami)
+  once: Boolean, // default: true
+  payload: Function, // default: konami => console.log('payload', konami)
+  secondPlayer: Boolean, // default: false
 };
 ```
 
@@ -44,7 +44,7 @@ const konamiConfig = {
 The payload function provided to the builder will be executed with access to the `konami.load()` and `konami.unload()` functions via the first parameter. This allows more custom behavior in enabling/disabling the Konami Code detection
 
 ```js
-import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/konami.index';
+import buildKonami from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/packages/konami/dist/index.jds';
 
 // Example: Builds a Konami Code detector that executes in "2P mode" a single time by default, or repeats if the user agrees
 buildKonami({

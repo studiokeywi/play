@@ -1,0 +1,29 @@
+{
+  "name": "@studiokeywi/play",
+  "browser": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "build": "esbuild src/index.ts --outfile=dist/index.js & tsc",
+    "build:clean": "npm run build",
+    "clean": "rm -rf ./dist & rm -rf ./types",
+    "prebuild:clean": "npm run clean",
+    "prepublish": "npm run build:clean"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "esbuild": "^0.17.8",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@studiokeywi/play-confetti": "*",
+    "@studiokeywi/play-konami": "*"
+  }
+}

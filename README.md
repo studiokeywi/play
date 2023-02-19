@@ -4,11 +4,11 @@ Fun bits and bobs for anyone to use!
 
 ## Contents
 
-- ### [Confetti](//github.studiokeywi.dev/play/tree/primary/confetti)
+- ### [Confetti](https://github.studiokeywi.dev/play/tree/primary/packages/confetti)
 
   Generate a shower of confetti on your webpage
 
-- ### [Konami](//github.studiokeywi.dev/play/tree/primary/konami)
+- ### [Konami](https://github.studiokeywi.dev/play/tree/primary/packages/konami)
 
   Enable the Konami Code as a way to execute JS functions
 
@@ -18,7 +18,7 @@ Fun bits and bobs for anyone to use!
 
 ```html
 <script type="module" defer>
-  import { confetti, konami } from '//cdn.jsdelivr.net/gh/studiokeywi/play/index.js';
+  import { confetti, konami } from 'https://cdn.jsdelivr.net/gh/studiokeywi/play/dist/index.js';
 
   const { init, render } = confetti();
 
