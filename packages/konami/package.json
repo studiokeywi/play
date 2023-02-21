@@ -1,7 +1,8 @@
 {
   "name": "@studiokeywi/play-konami",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "Unlock the retro power of the Konami Code on your websites! Creates an event listener that handles detection of keyboard inputs and executes a provided payload function if the user inputs the Konami Code correctly.",
+  "type": "module",
   "browser": "./dist/index.js",
   "exports": {
     ".": {

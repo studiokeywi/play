@@ -1,7 +1,8 @@
 {
   "name": "@studiokeywi/play-confetti",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "Shower the screen with faux confetti. Creates a canvas element to render confetti above the rest of the document.",
+  "type": "module",
   "browser": "./dist/index.js",
   "exports": {
     ".": {
